@@ -10,7 +10,7 @@ const PrismaticBurst = () => {
     if (!container) return;
 
     // Создаем анимированные элементы для голографического эффекта
-    const rays = [];
+    const rays: HTMLDivElement[] = [];
     for (let i = 0; i < 12; i++) {
       const ray = document.createElement('div');
       ray.className = 'prismatic-ray';
