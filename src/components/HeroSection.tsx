@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import PrismaticBurst from './PrismaticBurst';
 
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false);
@@ -27,35 +28,12 @@ export default function HeroSection() {
 
   return (
     <div className="relative h-screen w-full bg-background overflow-hidden">
-      {/* Animated Background */}
+      {/* Prismatic Burst Background */}
       <div className="absolute inset-0">
-        {/* Floating geometric elements */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-32 h-32 border border-border/30 rounded-lg"
-            initial={{ opacity: 0, y: 100 }}
-            animate={{
-              opacity: [0.3, 0.1, 0.3],
-              y: [-20, -100, -20],
-              x: [0, 50, 0],
-              rotate: [0, 180, 360],
-            }}
-            transition={{
-              duration: 8 + i * 2,
-              repeat: Infinity,
-              delay: i * 1.5,
-              ease: "easeInOut",
-            }}
-            style={{
-              left: `${15 + i * 15}%`,
-              top: `${20 + (i % 3) * 30}%`,
-            }}
-          />
-        ))}
+        <PrismaticBurst />
 
         {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-background/20 via-background/40 to-background/60" />
       </div>
 
       {/* Main Content */}
