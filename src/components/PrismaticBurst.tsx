@@ -175,7 +175,7 @@ void main(){
     fragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
 }`;
 
-const hexToRgb01 = hex => {
+const hexToRgb01 = (hex: string) => {
   let h = hex.trim();
   if (h.startsWith('#')) h = h.slice(1);
   if (h.length === 3) {
