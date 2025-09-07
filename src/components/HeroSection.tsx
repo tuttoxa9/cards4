@@ -30,7 +30,15 @@ export default function HeroSection() {
     <div className="relative h-screen w-full bg-background overflow-hidden">
       {/* Prismatic Burst Background */}
       <div className="absolute inset-0">
-        <PrismaticBurst />
+        <PrismaticBurst
+          intensity={1.5}
+          speed={0.3}
+          animationType="rotate3d"
+          colors={['#ff006e', '#8338ec', '#3a86ff', '#06ffa5', '#ffbe0b']}
+          distort={8}
+          rayCount={8}
+          mixBlendMode="screen"
+        />
 
         {/* Subtle gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-background/20 via-background/40 to-background/60" />
