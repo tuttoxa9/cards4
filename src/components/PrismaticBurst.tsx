@@ -2,6 +2,19 @@ import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle, Texture } from 'ogl';
 import './PrismaticBurst.css';
 
+interface PrismaticBurstProps {
+  intensity?: number;
+  speed?: number;
+  animationType?: string;
+  colors?: string[];
+  distort?: number;
+  paused?: boolean;
+  offset?: { x: number; y: number };
+  hoverDampness?: number;
+  rayCount?: number;
+  mixBlendMode?: string;
+}
+
 const vertexShader = `#version 300 es
 in vec2 position;
 in vec2 uv;
@@ -211,18 +224,18 @@ const PrismaticBurst = ({
   hoverDampness = 0,
   rayCount,
   mixBlendMode = 'lighten'
-}) => {
-  const containerRef = useRef(null);
-  const programRef = useRef(null);
-  const rendererRef = useRef(null);
-  const mouseTargetRef = useRef([0.5, 0.5]);
-  const mouseSmoothRef = useRef([0.5, 0.5]);
-  const pausedRef = useRef(paused);
-  const gradTexRef = useRef(null);
-  const hoverDampRef = useRef(hoverDampness);
-  const isVisibleRef = useRef(true);
-  const meshRef = useRef(null);
-  const triRef = useRef(null);
+}: PrismaticBurstProps) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const programRef = useRef<Program | null>(null);
+  const rendererRef = useRef<Renderer | null>(null);
+  const mouseTargetRef = useRef<[number, number]>([0.5, 0.5]);
+  const mouseSmoothRef = useRef<[number, number]>([0.5, 0.5]);
+  const pausedRef = useRef<boolean>(paused);
+  const gradTexRef = useRef<Texture | null>(null);
+  const hoverDampRef = useRef<number>(hoverDampness);
+  const isVisibleRef = useRef<boolean>(true);
+  const meshRef = useRef<Mesh | null>(null);
+  const triRef = useRef<Triangle | null>(null);
 
   useEffect(() => {
     pausedRef.current = paused;
@@ -309,7 +322,7 @@ const PrismaticBurst = ({
     }
     resize();
 
-    const onPointer = e => {
+    const onPointer = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / Math.max(rect.width, 1);
       const y = (e.clientY - rect.top) / Math.max(rect.height, 1);
@@ -320,7 +333,7 @@ const PrismaticBurst = ({
     let io = null;
     if ('IntersectionObserver' in window) {
       io = new IntersectionObserver(
-        entries => {
+        (entries: IntersectionObserverEntry[]) => {
           if (entries[0]) {
             isVisibleRef.current = entries[0].isIntersecting;
           }
