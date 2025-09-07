@@ -192,7 +192,7 @@ const hexToRgb01 = (hex: string) => {
   return [r, g, b];
 };
 
-const toPx = v => {
+const toPx = (v: number | string | null | undefined) => {
   if (v == null) return 0;
   if (typeof v === 'number') return v;
   const s = String(v).trim();
